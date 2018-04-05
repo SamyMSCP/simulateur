@@ -82,13 +82,16 @@
         #bar-chart .bars {
             height: 253px;
             padding: 0 2%;
-            position: absolute;
-            width: 100%;
+            position: relative;
+            margin-right: 30%;
+            margin-left: 35%;
+            width: 200%;
             z-index: 10;
         }
         #bar-chart .bar-group {
             display: block;
             float: left;
+            position: absolute;
             height: 100%;
             width: 12%;
             margin-right: 10%;
@@ -244,20 +247,29 @@
             margin-bottom: 3%
         }
 
+        .marge-reduire{
+            margin-bottom: -3%
+        }
+
+        .bleu-SCPI{
+            color: #01528a
+        }
+
+        .vert{
+            color: green;
+        }
+
 
     </style>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -277,7 +289,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #01528a">
             <div class="navbar-header"><img src="../images/logo.png">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -300,54 +312,66 @@
             <div class="row">
                 <!-- /.col-lg-6 -->
                 <div class="col-lg-12">
+
                     <div id="app">
                         <div>
-                            <div class="col-md-12">
-                                <h3>Revenues Locatifs</h3>
+                            <div class="col-md-6">
                                 <div class="col-md-12 marge-basse">
-                                    <p>Loyer mensuel hors charges : {{l_Mensuel}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
-                                    <b-form-slider v-model="l_Mensuel" min="0" :max="10000" trigger-change-event></b-form-slider>
+                                    <h3 class="bleu-SCPI">Revenus Locatifs</h3>
+                                    <div class="col-md-12 marge-basse">
+                                        <p>Loyer mensuel hors charges : {{l_Mensuel}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
+                                        <b-form-slider v-model="l_Mensuel" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
-                                </div><br>
-                                <p>Loyer annuel : {{l_Annuel=(12 * l_Mensuel)}}</p>
-                            </div>
-                            <div class="col-md-12">
-                                <h3>Charges non récupérables</h3>
-
-                                <div class="col-md-12 marge-basse">
-                                    <p>Charges non récupérables auprès des locataires (estimation d'un mois de loyer) </p>: {{c_n_Recup_Loca}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup_Loca"></div></p>
-                                    <b-form-slider v-model="c_n_Recup_Loca" min="0" :max="10000" trigger-change-event></b-form-slider>
-
-                                </div><br>
-                                <div class="col-md-12 marge-basse">
-                                    <p>Taxe foncière annuelle (estimé à un loyer mensuel) : {{t_Fonc}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
-                                    <b-form-slider v-model="t_Fonc" min="0" :max="10000" trigger-change-event></b-form-slider>
+                                    </div><br>
+                                    <h4>Loyer annuel : {{l_Annuel=(12 * l_Mensuel)}}</h4>
                                 </div>
-                                <p>Revenus nets de toutes les charges et frais hors fiscalité : {{r_Nets=(l_Annuel+t_Fonc+c_n_Recup_Loca)}}</p>
+                                <div class="col-md-12">
+                                    <h3 class="bleu-SCPI">Charges non récupérables</h3>
 
-                            </div>
-                            <div class="col-md-12 ">
-                                <h3>Investissement</h3>
+                                    <div class="col-md-12 marge-basse">
+                                        <p>Charges non récupérables auprès des locataires (estimation d'un mois de loyer) </p>: {{c_n_Recup_Loca}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup_Loca"></div></p>
+                                        <b-form-slider v-model="c_n_Recup_Loca" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
-                                <div class="col-md-12 marge-basse">
-                                    <p>Montant d’investissement du bien (hors droits hors agence hors frais de notaire) : {{m_Invest_Bien}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="m_Invest_Bien"></div></p>
-                                    <b-form-slider v-model="m_Invest_Bien" min="0" :max="10000" trigger-change-event></b-form-slider>
-                                </div><br>
+                                    </div><br>
+                                    <div class="col-md-12 marge-basse">
+                                        <p>Taxe foncière annuelle (estimé à un loyer mensuel) : {{t_Fonc}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
+                                        <b-form-slider v-model="t_Fonc" min="0" :max="1000000" trigger-change-event></b-form-slider>
+                                    </div>
+                                    <h4>Revenus nets de toutes les charges et frais hors fiscalité : {{r_Nets=(l_Annuel-t_Fonc-c_n_Recup_Loca)}}</h4>
 
-                                <div class="col-md-12 marge-basse">
-                                    <p>Frais d’agence : {{f_Agence}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="f_Agence"></div></p>
-                                    <b-form-slider v-model="f_Agence" min="0" :max="10000" trigger-change-event></b-form-slider>
-
-                                </div><br>
-
-                                <div class="col-md-12 marge-basse">
-                                    <p>Droits d’enregistrements et notaires I Frais de souscription (estimé en moyenne) : {{d_Enreg_Not}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="d_Enreg_Not"></div></p>
-                                    <b-form-slider v-model="d_Enreg_Not" min="0" :max="10000" trigger-change-event></b-form-slider>
                                 </div>
-                                <p>Montant de l'investissement : {{m_Investissement=(d_Enreg_Not + f_Agence+m_Invest_Bien)}}</p>
-
-
                             </div>
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <h3 class="bleu-SCPI">Investissement</h3>
+
+                                    <div class="col-md-12 marge-basse">
+                                        <p>Montant d’investissement du bien (hors droits hors agence hors frais de notaire) : {{m_Invest_Bien}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="m_Invest_Bien"></div></p>
+                                        <b-form-slider v-model="m_Invest_Bien" min="0" :max="1000000" trigger-change-event></b-form-slider>
+                                    </div><br>
+
+                                    <div class="col-md-12 marge-basse">
+                                        <p>Frais d’agence : {{f_Agence}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="f_Agence"></div></p>
+                                        <b-form-slider v-model="f_Agence" min="0" :max="1000000" trigger-change-event></b-form-slider>
+
+                                    </div><br>
+
+                                    <div class="col-md-12 marge-basse">
+                                        <p>Droits d’enregistrements et notaires I Frais de souscription (estimé en moyenne) : {{d_Enreg_Not}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="d_Enreg_Not"></div></p>
+                                        <b-form-slider v-model="d_Enreg_Not" min="0" :max="1000000" trigger-change-event></b-form-slider>
+                                    </div>
+                                    <h4>Montant de l'investissement : {{m_Investissement=(d_Enreg_Not + f_Agence+m_Invest_Bien)}}</h4>
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <h1>RENDEMENT : <p class="vert">{{rendement=(r_Nets/(m_Investissement+0.000000000000000000000000000000001))*100 | pourcentage }}</p></h1>
+                                </div>
+                            </div>
+
+
+
+
                             <div class="col-md-12">
 
                             </div>
@@ -358,7 +382,6 @@
                             <div id="bar-chart">
                                 <div class="graph">
                                     <ul class="x-axis">
-                                        <li><span>2010</span></li>
                                     </ul>
                                     <ul class="y-axis">
                                         <li><span>100</span></li>
@@ -369,13 +392,13 @@
                                     </ul>
                                     <div class="bars">
                                         <div class="bar-group">
-                                            <div class="bar bar-1 stat-1" v-bind:style="{ height:(l_Annuel/120000)*100 + '%' }">
+                                            <div class="bar bar-1 stat-1" v-bind:style="{ height:rendement + '%' }">
                                                 <span>4080</span>
                                             </div>
-                                            <div class="bar bar-2 stat-2" v-bind:style="{ height:(m_Investissement/30000)*100 + '%' }">
+                                            <div class="bar bar-2 stat-2" v-bind:style="{ height:(m_Investissement/300000)*100 + '%' }">
                                                 <span>5680</span>
                                             </div>
-                                            <div class="bar bar-3 stat-3" v-bind:style="{ height:(r_Nets/130000)*100 + '%' }">
+                                            <div class="bar bar-3 stat-3" v-bind:style="{ height:(r_Nets/1300000)*100 + '%' }">
                                                 <span>1040</span>
                                             </div>
                                         </div>
@@ -404,11 +427,7 @@
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="../vendor/raphael/raphael.min.js"></script>
-    <script src="../vendor/morrisjs/morris.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
@@ -424,26 +443,35 @@
             debug: true,
             data: function() {
                 return {
-                    l_Mensuel: 0,
+                    l_Mensuel: 915,
                     l_Annuel: 0,
-                    c_n_Recup: 0,
-                    t_Fonc: 0,
+                    c_n_Recup: 915,
+                    t_Fonc: 600,
                     c_n_Recup_Loca: 0,
                     r_Nets: 0,
-                    m_Invest_Bien: 0,
-                    f_Agence:0,
-                    d_Enreg_Not:0,
-                    m_Investissement: 0
+                    m_Invest_Bien: 200000,
+                    f_Agence:4000,
+                    d_Enreg_Not:4000,
+                    m_Investissement: 0,
+                    rendement: 0
                 }
             },
             methods: {
                 change: function(value) {
                     console.log(value)
                 }
+            },
+            filters: {
+                pourcentage: function (valeur, decimales) {
+                    if (decimales === undefined) {
+                        decimales = 2;
+                    }
+                    return Math.round(valeur * Math.pow(10, decimales)) / Math.pow(10, decimales) + ' %';
+                }
             }
+
         });
     </script>
-    <script src="../data/morris-data.js"></script>
 
 
 </body>
