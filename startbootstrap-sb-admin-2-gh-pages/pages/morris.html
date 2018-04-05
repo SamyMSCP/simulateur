@@ -240,6 +240,10 @@
             background-image: linear-gradient(to right, #00c5ff 0%, #00c5ff 47%, #0383a9 50%, #0383a9 100%);
         }
 
+        .marge-basse{
+            margin-bottom: 3%
+        }
+
 
     </style>
 
@@ -319,17 +323,53 @@
                 <div class="col-lg-12">
                     <div id="app">
                         <div>
-                            <p>Montant que vous souhaitez investir </p>
-                            <b-form-slider v-model="basicValue" min="0" :max="100" trigger-change-event></b-form-slider>
-                            <p>Montant recupéré au bout de 5 ans </p>
-                            <b-form-slider v-model="secondValue" min="0" :max="10000" trigger-change-event></b-form-slider>
-                            <p>Montant investi {{ basicValue + secondValue }}</p>
+                            <div class="col-md-6">
+                                <div class="col-md-12  marge-basse">
+                                    <p>Revenus locatifs : {{r_Locatifs}} € <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="r_Locatifs"></div></p>
+                                    <b-form-slider v-model="r_Locatifs" min="0" :max="10000" trigger-change-event></b-form-slider>
+                                </div>
+                                <div class="col-md-12 marge-basse">
+                                    <p>Loyer mensuel hors charges : {{l_Mensuel}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
+                                    <b-form-slider v-model="l_Mensuel" min="0" :max="10000" trigger-change-event></b-form-slider>
 
+                                </div><br>
+
+                                <div class="col-md-12 marge-basse">
+                                    <p>Charges non récupérables : {{c_n_Recup}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup"></div></p>
+                                    <b-form-slider v-model="c_n_Recup" min="0" :max="10000" trigger-change-event></b-form-slider>
+
+                                </div><br>
+                                <div class="col-md-12 marge-basse">
+                                    <p>Taxe foncière annuelle (estimé à un loyer mensuel) : {{t_Fonc}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
+                                    <b-form-slider v-model="t_Fonc" min="0" :max="10000" trigger-change-event></b-form-slider>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+
+
+                                <div class="col-md-12 marge-basse">
+                                    <p>Montant d’investissement du bien (hors droits hors agence hors frais de notaire) : {{m_Invest_Bien}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="m_Invest_Bien"></div></p>
+                                    <b-form-slider v-model="m_Invest_Bien" min="0" :max="10000" trigger-change-event></b-form-slider>
+                                </div><br>
+
+                                <div class="col-md-12 marge-basse">
+                                    <p>Frais d’agence : {{f_Agence}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="f_Agence"></div></p>
+                                    <b-form-slider v-model="f_Agence" min="0" :max="10000" trigger-change-event></b-form-slider>
+
+                                </div><br>
+
+                                <div class="col-md-12 marge-basse">
+                                    <p>Droits d’enregistrements et notaires I Frais de souscription (estimé en moyenne) : {{d_Enreg_Not}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="d_Enreg_Not"></div></p>
+                                    <b-form-slider v-model="d_Enreg_Not" min="0" :max="10000" trigger-change-event></b-form-slider>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div>
-                            total : {{ basicValue + secondValue + rangeValue}}
-                        </div>
+                            <p>Loyer annuel : {{12 * l_Mensuel}}</p>
+                            <p>Montant de l'investissement : {{d_Enreg_Not+f_Agence+m_Invest_Bien}}</p>
+
+
                         <div id="bar-chart">
                             <div class="graph">
                                 <ul class="x-axis">
@@ -348,10 +388,10 @@
                                 </ul>
                                 <div class="bars">
                                     <div class="bar-group">
-                                        <div class="bar bar-1 stat-1" v-bind:style="{ height:(basicValue/100)*100 + '%' }">
+                                        <div class="bar bar-1 stat-1" v-bind:style="{ height:(r_Locatifs/10000)*100 + '%' }">
                                             <span>4080</span>
                                         </div>
-                                        <div class="bar bar-2 stat-2" v-bind:style="{ height:(secondValue/10000)*100 + '%' }">
+                                        <div class="bar bar-2 stat-2" v-bind:style="{ height:(r_Locatifs/10000)*100 + '%' }">
                                             <span>5680</span>
                                         </div>
                                         <div class="bar bar-3 stat-3" style="height: 13%;">
@@ -443,9 +483,17 @@
             debug: true,
             data: function() {
                 return {
-                    basicValue: 0,
-                    secondValue: 0,
-                    rangeValue: 25,
+                    r_Locatifs:0,
+                    l_Mensuel: 0,
+                    l_Annuel: 0,
+                    c_n_Recup: 0,
+                    t_Fonc: 0,
+                    c_n_Recup_Loca: 0,
+                    r_Nets: 0,
+                    m_Invest_Bien: 0,
+                    f_Agence:0,
+                    d_Enreg_Not:0,
+                    m_Investissement: 0
                 }
             },
             methods: {
