@@ -318,7 +318,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Simulateur</h1>
+                    <h1 class="page-header" title="Lorem ipsum dolor sit amet">Simulateur</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -331,55 +331,58 @@
                         <div>
                             <div class="col-md-6">
                                 <div class="col-md-12 marge-basse">
-                                    <h3 class="montserrat">Revenus Locatifs</h3>
+                                    <h3 class="montserrat" title="Lorem ipsum dolor sit amet">Revenus Locatifs</h3>
                                     <div class="col-md-12 marge-basse">
-                                        <p>Loyer mensuel hors charges en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
+                                        <p title="Lorem ipsum dolor sit amet">Loyer mensuel hors charges en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
                                         <b-form-slider v-model="l_Mensuel" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
                                     </div><br>
-                                    <h4>Loyer annuel : {{formatMillier(l_Annuel=(12 * l_Mensuel))}} €</h4>
+                                    <h4 class="bleu-SCPI" title="Lorem ipsum dolor sit amet">Loyer annuel : {{formatMillier(l_Annuel=(12 * l_Mensuel))}} €</h4>
                                 </div>
                                 <div class="col-md-12">
-                                    <h3 class="montserrat">Charges non récupérables</h3>
+                                    <h3 class="montserrat" title="Lorem ipsum dolor sit amet">Charges non récupérables</h3>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Charges non récupérables auprès des locataires en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup_Loca"></div></p>
+                                        <p title="Lorem ipsum dolor sit amet">Charges non récupérables auprès des locataires en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup_Loca"></div></p>
                                         <b-form-slider v-model="c_n_Recup_Loca" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
                                     </div><br>
                                     <div class="col-md-12 marge-basse">
-                                        <p>Taxe foncière annuelle (estimé à un loyer mensuel) en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
+                                        <p title="Lorem ipsum dolor sit amet">Taxe foncière annuelle (estimé à un loyer mensuel) en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
                                         <b-form-slider v-model="t_Fonc" min="0" :max="1000000" trigger-change-event></b-form-slider>
                                     </div>
-                                    <h4>Revenus nets de toutes les charges et frais hors fiscalité : {{formatMillier(r_Nets=l_Annuel-t_Fonc-c_n_Recup_Loca)}} €</h4>
+                                    <h4 class="bleu-SCPI" title="Lorem ipsum dolor sit amet">Revenus nets de toutes les charges et frais hors fiscalité : {{formatMillier(r_Nets=l_Annuel-t_Fonc-c_n_Recup_Loca)}} €</h4>
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">
-                                    <h3 class="montserrat">Investissement</h3>
+                                    <h3 class="montserrat" title="Lorem ipsum dolor sit amet">Investissement</h3>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Montant d’investissement du bien (hors droits hors agence hors frais de notaire) en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="m_Invest_Bien"></div> </p>
+                                        <p title="Lorem ipsum dolor sit amet">Montant d’investissement du bien (hors droits hors agence hors frais de notaire) en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="m_Invest_Bien"></div> </p>
                                         <b-form-slider v-model="m_Invest_Bien" min="0" :max="1000000" trigger-change-event></b-form-slider>
                                     </div><br>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Frais d’agence en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="f_Agence"></div></p>
+                                        <p title="Lorem ipsum dolor sit amet">Frais d’agence en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="f_Agence"></div></p>
                                         <b-form-slider v-model="f_Agence" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
                                     </div><br>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Droits d’enregistrements et notaires I Frais de souscription (estimé en moyenne) en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="d_Enreg_Not"></div></p>
+                                        <p title="Lorem ipsum dolor sit amet">Droits d’enregistrements et notaires I Frais de souscription (estimé en moyenne) en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="d_Enreg_Not"></div></p>
                                         <b-form-slider v-model="d_Enreg_Not" min="0" :max="1000000" trigger-change-event></b-form-slider>
                                     </div>
-                                    <h4>Montant de l'investissement : {{formatMillier(m_Investissement=(d_Enreg_Not + f_Agence+m_Invest_Bien))}} €</h4>
+                                    <h4 class="bleu-SCPI" title="Lorem ipsum dolor sit amet">Montant de l'investissement : {{formatMillier(m_Investissement=(d_Enreg_Not + f_Agence+m_Invest_Bien))}} €</h4>
 
 
                                 </div>
                                 <div class="col-md-12 aligner-droite">
-                                    <h1>RENDEMENT : <p class="vert">{{rendement=(r_Nets/(m_Investissement+0.000000000000000000000000000000001))*100 | pourcentage}}</p></h1>
+                                    <h1 title="Lorem ipsum dolor sit amet">RENDEMENT : <p class="vert">{{rendement=(r_Nets/(m_Investissement+0.000000000000000000000000000000001))*100 | pourcentage}}</p></h1>
+                                    <div v-if="rendement > 3">
+                                        <h3 class="montserrat">Vous pouvez nous contacter au 01.23.45.67.89</h3>
+                                    </div>
                                 </div>
                             </div>
 
