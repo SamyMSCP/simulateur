@@ -259,6 +259,10 @@
             color: green;
         }
 
+        .rouge{
+            color: red;
+        }
+
         .montserrat{
             color: #01528a;
             font-family: 'Montserrat', sans-serif;
@@ -334,7 +338,7 @@
                                     <h3 class="montserrat" title="Lorem ipsum dolor sit amet">Revenus Locatifs</h3>
                                     <div class="col-md-12 marge-basse">
                                         <p title="Lorem ipsum dolor sit amet">Loyer mensuel hors charges en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
-                                        <b-form-slider v-model="l_Mensuel" min="0" :max="1000000" trigger-change-event></b-form-slider>
+                                        <b-form-slider v-model="l_Mensuel" min="0" :max="10000" trigger-change-event></b-form-slider>
 
                                     </div><br>
                                     <h4 class="bleu-SCPI" title="Lorem ipsum dolor sit amet">Loyer annuel : {{formatMillier(l_Annuel=(12 * l_Mensuel))}} €</h4>
@@ -344,12 +348,12 @@
 
                                     <div class="col-md-12 marge-basse">
                                         <p title="Lorem ipsum dolor sit amet">Charges non récupérables auprès des locataires en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup_Loca"></div></p>
-                                        <b-form-slider v-model="c_n_Recup_Loca" min="0" :max="1000000" trigger-change-event></b-form-slider>
+                                        <b-form-slider v-model="c_n_Recup_Loca" min="0" :max="6000" trigger-change-event></b-form-slider>
 
                                     </div><br>
                                     <div class="col-md-12 marge-basse">
                                         <p title="Lorem ipsum dolor sit amet">Taxe foncière annuelle (estimé à un loyer mensuel) en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
-                                        <b-form-slider v-model="t_Fonc" min="0" :max="1000000" trigger-change-event></b-form-slider>
+                                        <b-form-slider v-model="t_Fonc" min="0" :max="6000" trigger-change-event></b-form-slider>
                                     </div>
                                     <h4 class="bleu-SCPI" title="Lorem ipsum dolor sit amet">Revenus nets de toutes les charges et frais hors fiscalité : {{formatMillier(r_Nets=l_Annuel-t_Fonc-c_n_Recup_Loca)}} €</h4>
 
@@ -379,9 +383,14 @@
 
                                 </div>
                                 <div class="col-md-12 aligner-droite">
-                                    <h1 title="Lorem ipsum dolor sit amet">RENDEMENT : <p class="vert">{{rendement=(r_Nets/(m_Investissement+0.000000000000000000000000000000001))*100 | pourcentage}}</p></h1>
-                                    <div v-if="rendement > 3">
-                                        <h3 class="montserrat">Vous pouvez nous contacter au 01.23.45.67.89</h3>
+                                    <div v-if="m_Investissement > 0">
+                                        <div v-if="rendement <= 3">
+                                            <h1 title="Lorem ipsum dolor sit amet">RENDEMENT : <p class="rouge">{{rendement=(r_Nets/(m_Investissement))*100 | pourcentage}}</p></h1>
+                                        </div>
+                                        <div v-if="rendement > 3">
+                                            <h1 title="Lorem ipsum dolor sit amet">RENDEMENT : <p class="vert">{{rendement=(r_Nets/(m_Investissement))*100 | pourcentage}}</p></h1>
+                                            <h3 class="montserrat">Vous pouvez nous contacter au 01.23.45.67.89</h3>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -409,13 +418,13 @@
                                     </ul>
                                     <div class="bars">
                                         <div class="bar-group">
-                                            <div class="bar bar-1 stat-1" v-bind:style="{ height:rendement + '%' }">
+                                            <div class="bar bar-1 stat-1" v-bind:style="{ height:(l_Annuel/120000)*100 + '%' }">
                                                 <span>4080</span>
                                             </div>
-                                            <div class="bar bar-2 stat-2" v-bind:style="{ height:(m_Investissement/300000)*100 + '%' }">
+                                            <div class="bar bar-2 stat-2" v-bind:style="{ height:((t_Fonc+c_n_Recup_Loca)/120000)*100 + '%' }">
                                                 <span>5680</span>
                                             </div>
-                                            <div class="bar bar-3 stat-3" v-bind:style="{ height:(r_Nets/1300000)*100 + '%' }">
+                                            <div class="bar bar-3 stat-3" v-bind:style="{ height:((r_Nets)/120000)*100 + '%' }">
                                                 <span>1040</span>
                                             </div>
                                         </div>
@@ -454,6 +463,10 @@
     <script src="https://unpkg.com/bootstrap@next/dist/js/bootstrap.js"></script>
     <script src="https://unpkg.com/bootstrap-slider@latest/dist/bootstrap-slider.js"></script>
     <script src="https://unpkg.com/vue-bootstrap-slider@latest/dist/vue-bootstrap-slider.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script>
         const app = new Vue({
             el: '#app',
