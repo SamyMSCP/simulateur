@@ -259,6 +259,20 @@
             color: green;
         }
 
+        .montserrat{
+            color: #01528a;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: bolder;
+        }
+
+        .aligner-droite{
+            text-align: right;
+        }
+
 
     </style>
 
@@ -317,55 +331,55 @@
                         <div>
                             <div class="col-md-6">
                                 <div class="col-md-12 marge-basse">
-                                    <h3 class="bleu-SCPI">Revenus Locatifs</h3>
+                                    <h3 class="montserrat">Revenus Locatifs</h3>
                                     <div class="col-md-12 marge-basse">
-                                        <p>Loyer mensuel hors charges : {{l_Mensuel}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
+                                        <p>Loyer mensuel hors charges en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="l_Mensuel"></div></p>
                                         <b-form-slider v-model="l_Mensuel" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
                                     </div><br>
-                                    <h4>Loyer annuel : {{l_Annuel=(12 * l_Mensuel)}}</h4>
+                                    <h4>Loyer annuel : {{formatMillier(l_Annuel=(12 * l_Mensuel))}} €</h4>
                                 </div>
                                 <div class="col-md-12">
-                                    <h3 class="bleu-SCPI">Charges non récupérables</h3>
+                                    <h3 class="montserrat">Charges non récupérables</h3>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Charges non récupérables auprès des locataires (estimation d'un mois de loyer) </p>: {{c_n_Recup_Loca}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup_Loca"></div></p>
+                                        <p>Charges non récupérables auprès des locataires en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="c_n_Recup_Loca"></div></p>
                                         <b-form-slider v-model="c_n_Recup_Loca" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
                                     </div><br>
                                     <div class="col-md-12 marge-basse">
-                                        <p>Taxe foncière annuelle (estimé à un loyer mensuel) : {{t_Fonc}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
+                                        <p>Taxe foncière annuelle (estimé à un loyer mensuel) en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="t_Fonc"></div></p>
                                         <b-form-slider v-model="t_Fonc" min="0" :max="1000000" trigger-change-event></b-form-slider>
                                     </div>
-                                    <h4>Revenus nets de toutes les charges et frais hors fiscalité : {{r_Nets=(l_Annuel-t_Fonc-c_n_Recup_Loca)}}</h4>
+                                    <h4>Revenus nets de toutes les charges et frais hors fiscalité : {{formatMillier(r_Nets=l_Annuel-t_Fonc-c_n_Recup_Loca)}} €</h4>
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">
-                                    <h3 class="bleu-SCPI">Investissement</h3>
+                                    <h3 class="montserrat">Investissement</h3>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Montant d’investissement du bien (hors droits hors agence hors frais de notaire) : {{m_Invest_Bien}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="m_Invest_Bien"></div></p>
+                                        <p>Montant d’investissement du bien (hors droits hors agence hors frais de notaire) en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="m_Invest_Bien"></div> </p>
                                         <b-form-slider v-model="m_Invest_Bien" min="0" :max="1000000" trigger-change-event></b-form-slider>
                                     </div><br>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Frais d’agence : {{f_Agence}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="f_Agence"></div></p>
+                                        <p>Frais d’agence en € : <div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="f_Agence"></div></p>
                                         <b-form-slider v-model="f_Agence" min="0" :max="1000000" trigger-change-event></b-form-slider>
 
                                     </div><br>
 
                                     <div class="col-md-12 marge-basse">
-                                        <p>Droits d’enregistrements et notaires I Frais de souscription (estimé en moyenne) : {{d_Enreg_Not}} €<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="d_Enreg_Not"></div></p>
+                                        <p>Droits d’enregistrements et notaires I Frais de souscription (estimé en moyenne) en € :<div class="col-md-3"><input type="text" class="form-control" placeholder="entrer valeur" v-model="d_Enreg_Not"></div></p>
                                         <b-form-slider v-model="d_Enreg_Not" min="0" :max="1000000" trigger-change-event></b-form-slider>
                                     </div>
-                                    <h4>Montant de l'investissement : {{m_Investissement=(d_Enreg_Not + f_Agence+m_Invest_Bien)}}</h4>
+                                    <h4>Montant de l'investissement : {{formatMillier(m_Investissement=(d_Enreg_Not + f_Agence+m_Invest_Bien))}} €</h4>
 
 
                                 </div>
-                                <div class="col-md-12">
-                                    <h1>RENDEMENT : <p class="vert">{{rendement=(r_Nets/(m_Investissement+0.000000000000000000000000000000001))*100 | pourcentage }}</p></h1>
+                                <div class="col-md-12 aligner-droite">
+                                    <h1>RENDEMENT : <p class="vert">{{rendement=(r_Nets/(m_Investissement+0.000000000000000000000000000000001))*100 | pourcentage}}</p></h1>
                                 </div>
                             </div>
 
@@ -443,15 +457,15 @@
             debug: true,
             data: function() {
                 return {
-                    l_Mensuel: 915,
+                    l_Mensuel: 600,
                     l_Annuel: 0,
                     c_n_Recup: 915,
                     t_Fonc: 600,
-                    c_n_Recup_Loca: 0,
+                    c_n_Recup_Loca: 1000,
                     r_Nets: 0,
-                    m_Invest_Bien: 200000,
+                    m_Invest_Bien: 110000,
                     f_Agence:4000,
-                    d_Enreg_Not:4000,
+                    d_Enreg_Not:7000,
                     m_Investissement: 0,
                     rendement: 0
                 }
@@ -459,6 +473,15 @@
             methods: {
                 change: function(value) {
                     console.log(value)
+                },
+                formatMillier: function(nombre){
+                    nombre += '';
+                    var sep = ' ';
+                    var reg = /(\d+)(\d{3})/;
+                    while( reg.test( nombre)) {
+                        nombre = nombre.replace( reg, '$1' +sep +'$2');
+                    }
+                    return nombre;
                 }
             },
             filters: {
@@ -468,8 +491,8 @@
                     }
                     return Math.round(valeur * Math.pow(10, decimales)) / Math.pow(10, decimales) + ' %';
                 }
-            }
 
+            }
         });
     </script>
 
